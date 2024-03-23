@@ -11,7 +11,7 @@ namespace ProvaApisul.Controllers
 
         public ElevadorController()
         {
-           _elevadorService = new ElevadorService(Directory.GetCurrentDirectory() + "\\bin\\Debug\\net6.0\\Data\\input.json");
+           _elevadorService = new ElevadorService();
         }
 
         [HttpGet("andarMenosUtilizado")]

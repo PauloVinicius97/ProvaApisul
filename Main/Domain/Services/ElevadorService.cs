@@ -14,7 +14,7 @@ namespace Main.Domain.Services
     {
         private readonly List<ElevadorEntrada> entradas;
 
-        public ElevadorService(string filePath)
+        public ElevadorService()
         {
             var repository = new ElevadorRepository("https://raw.githubusercontent.com/guifilipiak/ProvaAdmissionalApisul/master/input.json");
             entradas = repository.GetEntradasAsync().Result.ToList();
