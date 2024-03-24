@@ -112,22 +112,25 @@ namespace Main.Domain.Services
 
         public List<char> periodoMaiorUtilizacaoConjuntoElevadores()
         {
-            var contagemPeriodos = entradas.GroupBy(entrada => entrada.Turno)
-                                           .ToDictionary(group => group.Key, group => group.Count());
+            Dictionary<char, int> contagemTurnos = new Dictionary<char, int>();
 
-            var maxContagem = contagemPeriodos.Max(dictionaryEntry => dictionaryEntry.Value);
-            var periodosMaiorUtilizacao = new List<char>();
-
-            foreach (var dictionaryEntry in contagemPeriodos)
+            foreach (var entrada in entradas)
             {
-                if (dictionaryEntry.Value == maxContagem)
+                if (contagemTurnos.ContainsKey(entrada.Turno))
                 {
-                    periodosMaiorUtilizacao.Add(dictionaryEntry.Key);
+                    contagemTurnos[entrada.Turno]++;
+                }
+                else
+                {
+                    contagemTurnos[entrada.Turno] = 1;
                 }
             }
 
-            return periodosMaiorUtilizacao;
+            List<char> turnosOrdenados = contagemTurnos.OrderByDescending(x => x.Value).Select(x => x.Key).ToList();
+
+            return turnosOrdenados;
         }
+
 
         public float percentualDeUsoElevadorA() => PercentualDeUsoElevador('A');
         public float percentualDeUsoElevadorB() => PercentualDeUsoElevador('B');
